@@ -27,3 +27,21 @@ A place order system for the restaurant, the customer can place orders immediate
 `node check.js`
 `node index3.js`
 `node kitchen3.js`
+
+
+### Screenshoot
+| ![demo1.png](https://github.com/moonChildLady/ordernow/blob/main/screencap/demo1.png?raw=true) | 
+|:--:| 
+| *Main screen* |
+
+| ![demo2.png](https://github.com/moonChildLady/ordernow/blob/main/screencap/demo2.png?raw=true) | 
+|:--:| 
+| *Silde menu on the left* |
+
+| ![demo3.png](https://github.com/moonChildLady/ordernow/blob/main/screencap/demo3.png?raw=true) | 
+|:--:| 
+| *Food Menu with price* |
+
+| ![demo4.png](https://github.com/moonChildLady/ordernow/blob/main/screencap/demo4.png?raw=true) | 
+|:--:| 
+| *Lock screen and advertisement* |
