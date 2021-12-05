@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/yiisoft/yii/!svn/ver/4851/trunk
+END
+composer.json
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/yiisoft/yii/!svn/ver/4274/trunk/composer.json
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/yiisoft/yii/!svn/ver/4235/trunk/LICENSE
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/yiisoft/yii/!svn/ver/4144/trunk/.gitignore
+END
+.travis.yml
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/yiisoft/yii/!svn/ver/4437/trunk/.travis.yml
+END
+CONTRIBUTING.md
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/yiisoft/yii/!svn/ver/4144/trunk/CONTRIBUTING.md
+END
+CHANGELOG
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/yiisoft/yii/!svn/ver/4845/trunk/CHANGELOG
+END
+UPGRADE
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/yiisoft/yii/!svn/ver/4814/trunk/UPGRADE
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/yiisoft/yii/!svn/ver/4144/trunk/README.md
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/yiisoft/yii/!svn/ver/2508/trunk/README
+END
+.mailmap
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/yiisoft/yii/!svn/ver/4144/trunk/.mailmap
+END

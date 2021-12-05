@@ -1,0 +1,54 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://pad.dress4u.hk:3000/socket.io/socket.io.js"></script>
+<script>
+$(document).ready(function(){
+    // Connect to our node/websockets server
+    var socket = io.connect('http://pad.dress4u.hk:3000');
+ 
+    // Initial set of notes, loop through and add to list
+    socket.on('initial notes', function(data){
+        var html = ''
+        /*for (var i = 0; i < data.length; i++){
+            // We store html as a var then add to DOM after for efficiency
+            html += '<li>' + data[i].note + '</li>'
+        }*/
+        $.each(data, function(i, row){
+            $('#notes').append('<li><div class="take_order" ref="'+row.id+'">'+row.ChiName+   row.NumberOfSet+ '</div></li>');
+        });
+        //$('#notes').html(html)
+         $('.take_order').click(function(){
+        //var newNote = 'This is a random ' + (Math.floor(Math.random() * 100) + 1)  + ' note'
+        var order_id = $(this).attr('ref');
+        socket.emit('new note', {takeby: 5, id:order_id});
+        });
+    });
+ 
+    // New note emitted, add it to our list of current notes
+    /*socket.on('new note', function(data){
+        $('div[ref='+data.id+']').prepend('<p class="ui-li-aside">New</p>');
+    });*/
+ 
+    // New socket connected, display new count on page
+    socket.on('users connected', function(data){
+        $('#usersConnected').html('Users connected: ' + data);
+    });
+
+ socket.on('output order', function(data){
+    //var html = '';
+    //$.each(data, function(i, row){
+        $('#notes').append('<li><div class="take_order" ref="'+data[0].id+'">' + data[0].ChiName +  data[0].NumberOfSet+ '_</div></li>');
+   // });
+ });
+    // Add a new (random) note, emit to server to let others know
+    /*$('li').click(function(){
+        //var newNote = 'This is a random ' + (Math.floor(Math.random() * 100) + 1)  + ' note'
+		var id = $(this).attr('ref');
+        socket.emit('new note', {id: id})
+    })*/
+
+ 
+});
+</script>
+<ul id="notes"></ul>
+<div id="usersConnected"></div>
+<div id="newNote">Create a new note</div>

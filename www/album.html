@@ -1,0 +1,44 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://pad.dress4u.hk:3000/socket.io/socket.io.js"></script>
+<script>
+$(document).ready(function(){
+    // Connect to our node/websockets server
+    var socket = io.connect('http://pad.dress4u.hk:3000');
+ 
+	
+	//socket.emit('sent eventID', {eventID: newNote});
+	
+	
+    // Initial set of notes, loop through and add to list
+    socket.on('init images', function(data){
+
+		console.log(data);
+		data.reverse(); 
+		console.log(data);
+        $.each(data, function(i, row){
+             $("#imageArea").append(
+        	'<img src="'+row+'" width="100px"/>'
+        );
+        });
+		
+
+    });
+     socket.on('delete images', function(data){
+
+		//console.log(data);
+		console.log(data);
+		
+		$('img').each(function(i, row){
+		
+		
+			if($(row).attr('src') == data){
+				$(row).remove();
+			}
+		});
+
+    });
+    
+    
+});
+</script>
+<div id="imageArea"></div>

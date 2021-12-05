@@ -1,0 +1,58 @@
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /> 
+         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.1.min.css" />
+		 <link rel="stylesheet" type="text/css" href="css/listview-grid.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.countdown.css" />
+        
+          
+         <!--script type="text/javascript" src="phonegap.js"></script-->
+        <!--script type="text/javascript" src="js/index.js"></script-->
+        <script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.1.min.js"></script>
+        
+        <script type="text/javascript" src="js/holder.js"></script>
+        <script type="text/javascript" src="js/jquery.countdown.min.js"></script>
+        <script type="text/javascript">
+            //app.initialize();
+        </script>
+		<style>
+			.well{
+				background-color: #202020;
+			}
+		</style>
+		<script type="text/javascript">
+	$(document).ready(function(){
+		//Holder.run();
+		//$("#submit").click(function(){
+		$.ajax({
+				dataType: "json",
+				url: "http://enrollment2.spkc.edu.hk/lww/staff/get_auto.php",
+				//crossDomain: true,
+				//cache:false,
+				//data: data,
+				success: function(data){
+					$.each(data, function(index, result){
+		
+						//$(".submit").prop("disabled", true);
+						console.log(result.content);
+					})
+				}
+			});//end of ajax
+	//});
+		//console.log(CheckLastOrder);
+		if(CheckLast == '1'){
+        $(".submit").prop("disabled", true);
+    }
+		});
+	</script>
+<ul data-role="listview" data-inset="true">
+        	<li><a href="#">
+            	<img src="../_assets/img/apple.png" class="ui-li-thumb">
+            	<h2>iOS 6.1</h2>
+                <p>Apple released iOS 6.1</p>
+                <p class="ui-li-aside">iOS</p>
+            </a></li>
+			
+</ul>

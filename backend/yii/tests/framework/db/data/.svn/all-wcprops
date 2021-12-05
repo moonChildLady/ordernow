@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/yiisoft/yii/!svn/ver/4822/trunk/tests/framework/db/data
+END
+sqlite.sql
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/yiisoft/yii/!svn/ver/4814/trunk/tests/framework/db/data/sqlite.sql
+END
+mysql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/yiisoft/yii/!svn/ver/4454/trunk/tests/framework/db/data/mysql.sql
+END
+postgres.sql
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/yiisoft/yii/!svn/ver/4461/trunk/tests/framework/db/data/postgres.sql
+END
+models-namespaced.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/yiisoft/yii/!svn/ver/4814/trunk/tests/framework/db/data/models-namespaced.php
+END
+oci.sql
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/yiisoft/yii/!svn/ver/4144/trunk/tests/framework/db/data/oci.sql
+END
+models.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/yiisoft/yii/!svn/ver/4822/trunk/tests/framework/db/data/models.php
+END
+models2.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/yiisoft/yii/!svn/ver/4461/trunk/tests/framework/db/data/models2.php
+END
+mssql.sql
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/yiisoft/yii/!svn/ver/4144/trunk/tests/framework/db/data/mssql.sql
+END

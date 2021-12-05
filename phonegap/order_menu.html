@@ -1,0 +1,78 @@
+	<script type="text/javascript">
+	$(document).ready(function(){
+		Holder.run();
+		$("#submit").click(function(){
+		$.ajax({
+dataType: "json",
+url: "http://pad.dress4u.hk/get_food.php",
+crossDomain: true,
+cache:false,
+//data: data,
+success: function(data){
+	$.each(data, function(index, result){
+		
+			//$(".submit").prop("disabled", true);
+			alert(result.content);
+	})
+}
+});//end of ajax
+	});
+		//console.log(CheckLastOrder);
+		if(CheckLast == '1'){
+        $(".submit").prop("disabled", true);
+    }
+		});
+	</script>
+
+<fieldset>
+    <legend>點餐</legend>
+    <ul class="thumbnails">
+  <li class="span2">
+    <a href="#" class="thumbnail">
+      <img data-src="js/holder.js/120x120">
+    </a>
+    <hr>
+    <div class="product_name">三文魚刺身</div>
+    <div class="source">日本</div>
+    <div class="calorie">500卡路里</div>
+  </li>
+  <li class="span2">
+    <a href="#" class="thumbnail">
+      <img data-src="js/holder.js/120x120">
+    </a>
+    <hr>
+    <div class="product_name">三文魚刺身</div>
+    <div class="source">日本</div>
+    <div class="calorie">500卡路里</div>
+  </li>
+  <li class="span2">
+    <a href="#" class="thumbnail">
+      <img data-src="js/holder.js/120x120">
+    </a>
+    <hr>
+    <div class="product_name">三文魚刺身</div>
+    <div class="source">日本</div>
+    <div class="calorie">500卡路里</div>
+  </li>
+  <li class="span2">
+    <a href="#" class="thumbnail">
+      <img data-src="js/holder.js/120x120">
+    </a>
+    <hr>
+    <div class="product_name">三文魚刺身</div>
+    <div class="source">日本</div>
+    <div class="calorie">500卡路里</div>
+  </li>
+  <li class="span2">
+    <a href="#" class="thumbnail">
+      <img data-src="js/holder.js/120x120">
+    </a>
+    <hr>
+    <div class="product_name">三文魚刺身</div>
+    <div class="source">日本</div>
+    <div class="calorie">500卡路里</div>
+  </li>
+</ul>
+
+    <p><button class="btn submit" id="submit" type="submit">落單</button></p>
+</fieldset>

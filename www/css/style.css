@@ -1,0 +1,26 @@
+body{
+background-color: #ff9800;
+}
+.span3 {
+    /*width: 20%;*/
+}
+.span12 {
+    background-color: #ff9600;
+    /*width: 100%;*/
+}
+.container div {
+    border-radius: 3px 3px 3px 3px;
+}
+.well {
+   background-color: rgba(245, 245, 245, 0.4);
+}
+hr {
+	border:0; 
+	height:2px; 
+	background-color:rgba(245, 245, 245, 0.4);
+	color:rgba(245, 245, 245, 0.4);	/* IE6 */
+}
+.modal-title{
+	color:black;
+	text-shadow: none;
+}

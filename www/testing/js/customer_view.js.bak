@@ -1,0 +1,445 @@
+
+$(document).on('pageinit', '#customer_view', function(){
+    var lasttime = "";
+    var endoftime = "";
+    var TypeID = "";
+    var tableid = "";
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+        var device_uuid = device.uuid;
+        //var element = document.getElementById('deviceProperties');
+        /*element.innerHTML = 'Device Model: '    + device.model    + '<br />' +
+                            'Device Cordova: '  + device.cordova  + '<br />' +
+                            'Device Platform: ' + device.platform + '<br />' +
+                            'Device UUID: '     + device.uuid     + '<br />' +
+                            'Device Version: '  + device.version  + '<br />';*/
+function initload(){
+    
+    $.ajax({
+    type: "POST",
+    url: "http://pad.dress4u.hk/check.php",
+    data: {uuid: device.uuid},
+    //contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    success: function (data) {
+//device type if
+        if($.isArray(data.TableInfo) && $.isArray(data.Order)){
+            $("#erromodal").modal('hide');
+        $.each(data.TableInfo, function(i, row) {
+            if(row.Status == 1){
+            $("#NumberOfSeat").text(row.NumberOfSeat);
+            $("#TableNo").text(row.TableNo);
+            $("#OrderInvoiceNo").text(row.OrderNo);
+            $("#tableCreatedOn").text(row.CreatedOn);
+            $("#TypeName").text(row.TypeName);
+            TypeID = row.Type;
+            lasttime = row.LastOrder;
+            endoftime = row.ExpiredOn;
+            tableid = row.TableNo;
+        }else{
+            $("#customer_view").empty();
+            $("#customer_view").html('<p>時間到了</p>');
+           //alert(row.Available);
+        }
+        });
+
+        $("#customer_view").unblock({
+                onUnblock: function(){
+                    $('#lastordertimer, #countdowntimer').countdown('destroy');
+                    setTimeout(counter, 5000);
+                    $("#myModal").modal('hide');
+                    $.mobile.navigate( "#customer_view" );
+                    //alert('1');
+                    //counter();
+
+                }
+            }); 
+        $.each(data.Order, function(i, row) {
+            //if(row.Available == 1){
+            $("#orderInfo_No").text(row.NoOfOrder);
+        //}else{
+          //  $("#home").empty();
+           // $("#home").html('<p>時間到了</p>');
+           //alert(row.Available);
+        //}
+        });
+
+        setInterval('updateClock()', 1000);
+        //var blockstatus = $("#home").data();
+        //if(blockstatus["blockUI.isBlocked"] != 1){
+            //if(lasttime )
+         setTimeout(counter, 5000);
+        //}
+    }else{
+        if(data == 3 || data == 2 || data == 4 || data == 5){
+            //$("#home").hide();
+            //alert(data);
+            if(data==5){
+                //$.mobile.changePage( "kitchen.html", { transition: "slide", changeHash: false });
+                //$.mobile.pageContainer.pagecontainer("change", "kitchen.html");
+                //document.location.href="kitchen.html";
+                $.mobile.navigate( "#kitchen_view" );
+
+            }else{
+            var blockstatus = $("#customer_view").data();
+            //if(!$("#erromodal").data()['bs.modal'].isShown){
+            if(blockstatus["blockUI.isBlocked"] != 1){
+                
+            $("#customer_view").block();
+            if(data == 3){
+            $("#error_Label").html('歡迎下次光臨！謝謝！');
+            }else if(data == 2){
+            $("#error_Label").html('此裝置未能進行認証。');
+            }else{
+                $("#error_Label").html('本店的使用裝置已超出限定。');
+            }
+            $("#error_body").html(
+                '<fieldset><legend>以下是廣告商提供之廣告</legend>'+
+                '<p class="text-center">'+
+                '<img src="http://rack.0.mshcdn.com/media/ZgkyMDEzLzA0LzE4L2M4L2dvb2dsZS5kZWVlMy5naWYKcAl0aHVtYgkxMjAweDk2MDA-/a2bcbaea/ba6/google.gif" data-fragment="m!7558" data-width="500" title="google" alt="" src="http://rack.0.mshcdn.com/media/ZgkyMDEzLzA0LzE4L2M4L2dvb2dsZS5kZWVlMy5naWYKcAl0aHVtYgkxMjAweDk2MDA-/a2bcbaea/ba6/google.gif">'+
+                '</p>'+
+                '</fieldset>'+
+                '<div class="row">'+
+                '<div class="col-md-4">'+
+                '<div class="thumbnail">'+
+                '<img src="http://pad.dress4u.hk/get_QR.php?uuid='+device_uuid+'">'+
+                '<div class="caption">'+
+                '<h3 text-align="center">本店專用</h3>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-md-4">'+
+                '<div class="thumbnail">'+
+                '<img src="http://pad.dress4u.hk/get_QR.php?uuid='+device_uuid+'">'+
+                '<div class="caption">'+
+                '<h3 text-align="center">廣告詳情</h3>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'
+                );
+            $("#erromodal").modal({
+                keyboard: false,
+                backdrop: "static"
+            });
+            /*$("#errormoal").on('hiiden.bs.modal', function (e){
+                return false;
+            });*/
+        }
+        }
+        }
+
+    }
+        //$('#order_menu_list').listview('refresh');
+    }//end of device if
+}); 
+}
+    initload();
+    loadChart();
+    
+    function loadChart() {
+    // We use a trick to make our 'interval' var kinda static inside the function.
+    // Its value will not change between calls to loadChart().
+    var interval = null;
+
+    // This is the core of a trick: replace outer function with inner helper 
+    // that remembers 'interval' in its scope.
+    loadChart = realLoadChart;
+    return realLoadChart();
+
+    function realLoadChart() {
+        var speed = 5000;
+
+        // Remove old interval if it exists, then set up a new one
+        interval && clearInterval(interval);
+        interval = setInterval(reloadData, speed);
+
+        function reloadData() {
+            initload();
+            //alert(lasttime);
+        }
+    }
+}
+    
+$(document).on('vclick', '#btn_order_food', function(){  
+    $.ajax({
+    type: "POST",
+    url: "http://pad.dress4u.hk/save_order.php",
+    data: $('#order_food').serialize()+'&TableNo='+$("#TableNo").text()+'&OrderNo='+$("#OrderInvoiceNo").text(),
+    //contentType: "application/json; charset=utf-8",
+    dataType: "json",
+
+    success: function (data) {
+        //alert(data);
+        /*if(data==1){
+            alert("已成功落單!");
+        }*/
+        //$('#order_menu_list').listview('refresh');
+    }
+});
+});
+
+$( "#order_left" ).on( "panelbeforeopen", function() { 
+    //alert(1);
+    $("#order_left_list").empty();
+    $.ajax({
+    type: "POST",
+    url: "http://pad.dress4u.hk/get_order_info.php",
+    data: {tableNo: $("#TableNo").text()},
+    //contentType: "application/json; charset=utf-8",
+    dataType: "json",
+
+    success: function (result) {
+        $.each(result.order_list, function(i, row) {
+        //alert(row.id);
+        $("#order_left_list").append(
+        '<tr>'+
+        '<td>'+
+        //'<li>'+
+        //'<a href="#" data-toggle="modal" data-target="#myModal" data-id="'+row.id+'">'+
+        //'<a href="#">'+
+        //'<h2>'+row.food_chiname+'</h2>'+
+        '<p>'+row.food_chiname+'</p>'+
+        //'<p class="ui-li-aside">'+row.NumberOfSet+'件，每件'+row.Price+'<br>總數為'+row.subTotal+'</p>'+
+        //'</a>'+
+        '</td>'+
+        '<td>'+
+        '<p>'+row.NumberOfSet+'件，每件'+row.Price+'<br>小計：'+row.subTotal+'</p>'+
+        '</td>'+
+        '</tr>');
+        
+        });
+        $.each(result.total, function(i, row) {
+            //$("#order_left_total").text(row.show_total);
+            $("#order_left_list tr:last").after(
+                '<tr>'+
+                '<td>'+
+                '<p>總計（已加一服務貴）：</p>'+
+                '</td>'+
+                '<td><p>'+row.show_actual_total+
+                '</p></td>'+
+                '</tr>'+
+                '<input type="hidden" id="actual_total" value="'+row.actual_total+'">'
+                );
+        });
+        $('#order_left_list').listview('refresh');
+    }
+});     
+    //order_left_list
+} );
+
+$(document).on('vclick', '#to_order_menu', function(){ 
+    $.mobile.changePage( "#order_menu", { transition: "slide", changeHash: false });
+});
+
+/*$(document).on('vclick', '#btn_comfirm_checkout', function(){ 
+    $("#order_left_list").clone().appendTo("#checkout_menu");
+    //$('#checkout_menu').listview('refresh');
+    
+});*/
+$("#checkout_menu").on('show.bs.modal', function(){
+    $("#checkout_body").empty();
+    $("#order_left_list").clone().appendTo("#checkout_body");
+});
+$(document).on('vclick', '#to_order_info', function(){ 
+    $.mobile.changePage( "#order_info", { transition: "slide", changeHash: false });
+});
+$(document).on('vclick', '#btn_comfirm_checkout', function(){ 
+    $.ajax({
+    type: "POST",
+    url: "http://pad.dress4u.hk/checkout.php",
+    data: {OrderNo: $("#OrderInvoiceNo").text(), InvoiceAmount: $("#actual_total").val()},
+    //contentType: "application/json; charset=utf-8",
+    //dataType: "json",
+
+    success: function (result) {
+        alert(result);
+    }
+});
+});
+$(document).on('vclick', '#order_menu_list li a', function(){ 
+    //$.mobile.changePage( "#order_menu", { transition: "slide", changeHash: false });
+    //ajaxloader();
+    //$("#order_menu_list").empty();
+    var id = $(this).attr('data-id');
+    //console.log(id);
+    $("#food_body, #food_Label").empty();
+    $.ajax({
+    type: "POST",
+    url: "http://pad.dress4u.hk/get_food.php",
+    data: {get_food_details: 1, food_id: id, Type: TypeID},
+    //contentType: "application/json; charset=utf-8",
+    dataType: "json",
+
+    success: function (result) {
+        $.each(result, function(i, row) {
+        //alert(row.id);
+        //if(id==row.id){
+            //console.log(1);
+            $("#food_Label").html(row.food_chiname+'<small>'+row.food_engname+'</small>');
+            $("#food_body").append(
+            '<fieldset><legend>食物資料</legend>'+
+            '<p><img src="img/'+row.images+'" class="ui-li-thumb"></p>'+
+            '<p>產地: '+row.source_chiname+' - '+row.source_engname+'</p>'+
+            '<p>卡路里: '+row.Calorie+'</p>'+
+            '<p>售價: '+row.Price+'</p>'+
+            '<p>'+row.Description+'</p>'+
+            //'</fieldset>'+
+            //'<fieldset><legend>食物資料</legend>'+
+            '<form name="order_food" id="order_food">'+
+            '<input type="hidden" value="'+row.id+'" name="foodID">'+
+            '<input type="hidden" value="'+row.ShowPrice+'" id="foodprice">'+
+            '<div data-role="fieldcontain">'+
+            '<p>落單數量: <span id="food_quan"></span>件，小計：<span id="food_subtotal">'+row.ShowPrice+'</span></p>'+
+            '<input type="range" name="foodquan" id="foodquan" value="1" min="1" max="10" data-highlight="true" />'+
+            '</form>'+
+            '</div>'+
+            '</fieldset>'
+            
+            )
+        //}
+            
+        });
+        //$('#food_Label').listview('refresh');
+        $("#food_quan").text($("#foodquan").val());
+        $("#foodquan").change(function(){
+        $("#food_quan").text($("#foodquan").val());
+        $("#food_subtotal").text($("#foodquan").val()*$("#foodprice").val());
+        });
+    }
+}); 
+});
+
+
+
+
+$(document).on('pageinit', '#order_menu', function(){ 
+    var socket = io.connect('http://pad.dress4u.hk:3000');
+    $("#myNavbar").empty();
+
+    socket.emit('send type', {typeid: TypeID, tableID:9});
+
+    socket.on('get cat', function(data){
+    $.each(data, function(i, row){
+    $("#myNavbar").append(
+        '<li><a data-ajax="false" href="#tab_order_menu_'+row.CatID+'">'+row.ChiName+'</a></li>'
+    );
+    });
+    //$("#ul_order_menu").listview('refresh');
+     $("#myNavbar").navbar();
+     $('#customer_view').page();
+});
+
+
+   /* $("#order_menu_list").empty();
+     $.ajax({
+    type: "POST",
+    url: "http://pad.dress4u.hk/get_food.php",
+    data: {Type: TypeID},
+    //contentType: "application/json; charset=utf-8",
+    dataType: "json",
+
+    success: function (result) {
+        $.each(result, function(i, row) {
+        //alert(row.id);
+        $("#order_menu_list").append(
+        '<li>'+
+        '<a href="#" data-toggle="modal" data-target="#myModal" data-id="'+row.id+'">'+
+        '<img src="img/'+row.images+'" class="ui-li-thumb">'+
+        '<h2>'+row.food_chiname+'</h2>'+
+        '<p>'+row.food_engname+'<span class="badge pull-right">'+row.Price+'</span></p>'+
+        '<p class="ui-li-aside">New</p>'+
+        '</a>'+
+        '</li>');
+        
+        });
+        $('#order_menu_list').listview('refresh');
+    }
+});*/
+});
+
+$(document).on('pagebeforeshow', '#order_info', function(){ 
+    //ajaxloader();
+    $("#order_info_list").empty();
+        $.ajax({
+    type: "POST",
+    url: "http://pad.dress4u.hk/get_order_info.php",
+    data: {tableNo: $("#TableNo").text()},
+    //contentType: "application/json; charset=utf-8",
+    dataType: "json",
+
+    success: function (result) {
+        if(result.length != 0){
+        $.each(result.order_list, function(i, row) {
+        if(row.process==1){
+            var status = "處理中";
+        }else if(row.process==2){
+            var status = "已完成";
+        }else{
+            var status = "準備中";
+        }
+        //alert(row.id);
+        $("#order_info_list").append(
+        '<li>'+
+        //'<a href="#" data-toggle="modal" data-target="#myModal" data-id="'+row.id+'">'+
+        '<a href="#">'+
+        '<img src="img/'+row.images+'" class="ui-li-thumb">'+
+        '<h2>'+row.food_chiname+'</h2>'+
+        '<p>'+row.food_engname+'</p>'+
+        '<p class="ui-li-aside">'+row.NumberOfSet+'件，每件'+row.Price+'<br>總數為'+row.subTotal+'<br>'+status+'</p>'+
+        //'<p>'+row.status+'</p>'+
+        '</a>'+
+        '</li>');
+        
+        });
+        $('#order_info_list').listview('refresh');
+        }else{
+        $("#order_info_list").append(
+            '<li>暫無落單</li>'
+            );
+    }
+    
+    }
+});   
+});
+}  
+function counter(){
+var countdown = endoftime;
+var lastorder = lasttime;
+$('#lastordertimer').countdown({
+    until: lastorder,
+    layout: '最後落單剩餘： {hn}:{mn}:{sn}',
+    expiryText: '<div class="over">最後落單剩餘： 已完結</div>',
+    onExpiry: function () { 
+                        
+                        //alert('done.');
+                        $(".submit").prop("disabled", true);
+                        //checklastordertime(1);
+                        
+                    }
+});
+$('#countdowntimer').countdown({
+    until: countdown,
+    layout: '結束時候剩餘： {hn}:{mn}:{sn}',
+    expiryText: '<div class="over">結束時候剩餘： 已完結</div>',
+    onExpiry: function () { 
+                        
+                       //alert($("#OrderInvoiceNo").text());
+                       $.ajax({
+                        type: "POST",
+                        url: "http://pad.dress4u.hk/table.php",
+                        data: {enable: '0', OrderNo: $("#OrderInvoiceNo").text()},
+                        //contentType: "application/json; charset=utf-8",
+                        //dataType: "json",
+                        success: function (result) {
+                            //if(result == '1'){
+                               // alert(result);
+                            //}
+                        }
+                        });
+                        
+                    }
+}); 
+} 
+});

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        
+        <!--meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" /-->
+        <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
+        <!--meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1"-->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon" href="apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png" />
+<link rel="apple-touch-startup-image" href="apple-touch-startup-image-320x460.png" />
+<link rel="apple-touch-startup-image" sizes="768x1004" href="apple-touch-startup-image-768x1004.png" />
+        <!--link rel="stylesheet" type="text/css" href="css/index.css" /-->
+        
+        
+         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.1.min.css" />
+         <!--link rel="stylesheet" type="text/css" href="css/listview-grid.css" /-->
+         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /> 
+        <link rel="stylesheet" type="text/css" href="css/jquery.countdown.css" />
+        <link rel="stylesheet" type="text/css" href="css/notification.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+          
+         <!--script type="text/javascript" src="phonegap.js"></script-->
+        <!--script type="text/javascript" src="js/index.js"></script-->
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        
+
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<script src="http://pad.dress4u.hk:3000/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.1.min.js"></script>
+        
+        <script type="text/javascript" src="js/holder.js"></script>
+        <script type="text/javascript" src="js/jquery.countdown.min.js"></script>
+        <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+
+<!--script type="text/javascript" src="js/kitchen_view.js"></script-->
+<!--script type="text/javascript" src="js/kitchen_list.js"></script-->
+        <style>
+            .well{
+                background-color: #202020;
+            }
+            .ajaxLoader {
+                position: fixed;
+                top: 44%;
+                left: 44%;
+                margin-top: -24px;
+                margin-left: -24px;
+    z-index: 100;
+    display: none;
+}
+        </style>
+        <title>食べ放題</title>
+    </head>
+    <body>
+
+
+
+
+<!--div customer_view-->
+<div data-role="page" data-theme="b" id="admin" class="my-page"> 
+    <div data-role="header" data-position="fixed" data-theme="b" data-tap-toggle="false">
+        <h1>食べ放題</h1>
+        <!--a href="#demo-intro" data-rel="back" data-icon="carat-l" data-iconpos="notext">Back</a-->
+        <!--a href="#" onclick="window.location.reload()" data-icon="back" data-iconpos="notext">Refresh</a-->
+        <a id="order_left" data-icon="back" data-iconpos="notext">Refresh</a>
+    </div><!-- /header -->
+
+<div role="main" class="ui-content">
+    <div class="well">
+
+
+   <div data-role="content"> 
+
+
+  <div id="order_menu_list" class="ui-body-d ui-content">
+
+  </div>
+</div>
+    </div>
+    </div>
+
+   <div data-role="footer" data-id="foo1" data-position="fixed" data-tap-toggle="false">
+  <div data-role="navbar">
+    <ul>
+      <li data-iconpos="top" data-icon="grid"><a href="#customer_view">台號</a></li>
+      <li data-iconpos="top" data-icon="check"><a href="#send_msg">設定</a></li>
+    </ul>
+  </div><!-- /navbar -->
+</div><!-- /footer -->
+
+</div>
+<!--div customer_view-->  
+
+
+
+<!--div order_info-->
+
+<div data-role="page" data-theme="b" id="send_msg" class="my-page"> 
+    <div data-theme="b" data-role="header" data-position="fixed" data-tap-toggle="false">
+        <a href="#customer_view" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a>                        
+        <h1>Message to Customers</h1>
+    </div>        
+    <div data-role="content">
+      <!--form role="form"-->
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="msg_title" placeholder="標題">
+  </div>
+    <div class="form-group">
+    <label for="body">Title</label>
+    <input type="text" class="form-control" id="msg_body" placeholder="內文">
+  </div>
+  <button id="submit" class="btn btn-default">確定</button>
+<!--/form-->
+    </div>
+       <div data-role="footer" data-id="foo1" data-position="fixed" data-tap-toggle="false">
+  <div data-role="navbar">
+    <ul>
+      <li data-iconpos="top" data-icon="grid"><a href="#customer_view">台號</a></li>
+      <li data-iconpos="top" data-icon="check"><a href="#send_msg">設定</a></li>
+    </ul>
+  </div><!-- /navbar -->
+</div><!-- /footer -->
+    
+</div>
+
+<!--/div order_info--> 
+
+
+
+
+<div class="modal bs-example-modal-lg" id="showorder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2 class="modal-title" id="orderLabel"></h2>
+      </div>
+      <div class="modal-body">
+            <table id="orderbody" class="table table-bordered">
+            </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn_place_order" class="btn btn-info">落單</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        <button type="button" id="btn_check_order" class="btn btn-primary">結帳</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--/div checkout_menu--> 
+<div class="modal bs-example-modal-lg" id="checkout_menu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2 class="modal-title">結帳帳單</h2>
+      </div>
+      <div class="modal-body" id="checkout_body">
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        <button type="button" id="btn_comfirm_checkout" class="btn btn-primary">確認結帳</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/div popupmsg--> 
+<div class="modal bs-example-modal-lg" id="popupmsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2 class="modal-title" id="popuptitle"></h2>
+      </div>
+      <div class="modal-body" id="popupbody">
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        <!--button type="button" id="btn_comfirm_checkout" class="btn btn-primary">確認結帳</button-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- error modal-->
+<div class="modal bs-example-modal-lg" id="erromodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button-->
+        <h2 class="modal-title" id="error_Label"></h2>
+      </div>
+      <div class="modal-body" id="error_body">
+            
+      </div>
+      <!--div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+        <button type="button" id="btn_order_food" class="btn btn-primary">落單</button>
+      </div-->
+    </div>
+  </div>
+</div>
+<!-- /error modal-->
+
+<!-- /header -->
+
+</body>
+    
+</html>
+
+
+<script type="text/javascript" src="js/timer.js"></script>
+<script type="text/javascript">
+function ajaxloader(){
+$.ajaxSetup({
+    beforeSend:function(){
+        $(".ajaxLoader").show();
+        //$.mobile.showPageLoadingMsg();
+    },
+    complete:function(){
+        $(".ajaxLoader").hide();
+        //$.mobile.hidePageLoadingMsg()
+    }
+});
+}
+
+ </script>
+ 
