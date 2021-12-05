@@ -29,7 +29,7 @@ A place order system for the restaurant, the customer can place orders immediate
 `node kitchen3.js`
 
 
-### Screenshoot
+### Screenshot
 | ![demo1.png](https://github.com/moonChildLady/ordernow/blob/main/screencap/demo1.png?raw=true) | 
 |:--:| 
 | *Main screen* |
