@@ -5,7 +5,7 @@ var io = require('socket.io').listen(3000)
 var db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-	password: '23602312',
+	password: '',
     database: 'BUFFET',
     insecureAuth: true
 })

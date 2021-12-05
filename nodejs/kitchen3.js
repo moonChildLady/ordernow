@@ -7,7 +7,7 @@ var db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
 	password: '23602312',
-    database: 'BUFFET',
+    database: '',
     insecureAuth: true
 })
  
